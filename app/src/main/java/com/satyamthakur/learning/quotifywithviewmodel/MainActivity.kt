@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(_binding.root)
 
         // making status bar transparent
-        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        window.statusBarColor = Color.TRANSPARENT
+//        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+//        window.statusBarColor = Color.TRANSPARENT
 
         mainViewModel = ViewModelProvider(this, MainViewModelFactory(this@MainActivity))
             .get(MainViewModel::class.java)
