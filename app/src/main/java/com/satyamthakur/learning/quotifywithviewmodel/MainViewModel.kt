@@ -1,6 +1,7 @@
 package com.satyamthakur.learning.quotifywithviewmodel
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import java.nio.charset.Charset
@@ -8,8 +9,8 @@ import kotlin.math.sign
 
 class MainViewModel(val context: Context): ViewModel() {
 
-    private var quoteList: Array<Quote> = emptyArray()
-    private var index = 0
+    var quoteList: Array<Quote> = emptyArray()
+    var index = MutableLiveData<Int>(0)
 
     init {
         quoteList = loadQuotesFromAssets()
@@ -26,18 +27,14 @@ class MainViewModel(val context: Context): ViewModel() {
         return gson.fromJson(json, Array<Quote>::class.java)
     }
 
-    fun getQuote() = quoteList[index]
+    fun getQuote() = quoteList[index.value!!]
 
-    fun nextQuote(): Quote {
-        index++
-        index = index % quoteList.size
-        return quoteList[index]
+    fun nextQuote() {
+        index.value = (index.value!! + 1) % quoteList.size
     }
 
-    fun prevQuote(): Quote {
-        index--
-        index = (index + quoteList.size) % quoteList.size
-        return quoteList[index]
+    fun prevQuote() {
+        index.value = (index.value!! - 1 + quoteList.size) % quoteList.size
     }
 
 }

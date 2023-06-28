@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.satyamthakur.learning.quotifywithviewmodel.databinding.ActivityMainBinding
 
@@ -28,14 +29,16 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, MainViewModelFactory(this@MainActivity))
             .get(MainViewModel::class.java)
 
-        setQuote(mainViewModel.getQuote())
+        mainViewModel.index.observe(this, Observer {
+            setQuote(mainViewModel.quoteList[it])
+        })
 
         _binding.nextButton.setOnClickListener {
-            setQuote(mainViewModel.nextQuote())
+            mainViewModel.nextQuote()
         }
 
         _binding.prevButton.setOnClickListener {
-            setQuote(mainViewModel.prevQuote())
+            mainViewModel.prevQuote()
         }
 
         _binding.shareBtn.setOnClickListener {
